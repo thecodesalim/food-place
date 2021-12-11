@@ -14,6 +14,7 @@ export default function Input(props) {
         borderColor: "#ddd",
         borderStyle: "solid",
         marginBottom: "8px",
+        marginLeft: "8px",
       }}
     />
   );

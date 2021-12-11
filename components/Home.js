@@ -19,7 +19,7 @@ function Profile({ session }) {
   react.useEffect(() => {
     getProfile();
     getItems();
-  }, [session]);
+  }, [session, name]);
 
   const getProfile = async () => {
     try {
@@ -137,13 +137,9 @@ function Profile({ session }) {
           </div>
         </div>
         <p>Recents:</p>
-        {loading ? (
-          <p>Loading</p>
-        ) : (
-          fetchRest.map((i) => (
-            <Card key={i.id} name={i.restaurant_name} meal={i.favourite_meal} />
-          ))
-        )}
+        {fetchRest.map((i) => (
+          <Card key={i.id} name={i.restaurant_name} meal={i.favourite_meal} />
+        ))}
       </div>
       <div className={styles.info}>
         <Info />
@@ -156,25 +152,30 @@ function Header() {}
 
 function Info() {
   return (
-    <header>
+    <nav>
       <h1 className={styles.heading}>Salim Abubakar</h1>
       <div className={styles.list}>
-        <p>Restaurants</p>
-        <p>List</p>
-        <p>Profile</p>
-        <p>Settings</p>
-        <p>Log Out</p>
+        <a>restaurants</a>
+        <a>list</a>
+        <a>profile</a>
+        <a>settings</a>
+        <a>log out</a>
       </div>
-    </header>
+    </nav>
   );
 }
 
 function Card({ name, meal }) {
   return (
     <div className={styles.card}>
-      <p className={styles.restaurant}>{name}</p>
-      <p>{meal}</p>
-      <p className={styles.location}>Abuja, Nigeria</p>
+      <div className={styles.food}>
+        <p className={styles.restaurant}>{name}</p>
+        <p>{meal}</p>
+      </div>
+      <div className={styles.food_details}>
+        <p className={styles.location}>Abuja, Nigeria</p>
+        <p className={styles.date}>December 11, 2021</p>
+      </div>
     </div>
   );
 }
