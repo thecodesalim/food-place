@@ -1,0 +1,12 @@
+.main {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-left: 2%;
+  margin-right: 2%;
+}
+
+.name {
+  display: flex;
+  flex-direction: column;
+}

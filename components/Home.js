@@ -4,6 +4,7 @@ import react from "react";
 import { supabase } from "../utils/supabaseClient";
 import styles from "../styles/Home.module.css";
 import Input from "../components/Input";
+import Nav from "../components/Nav";
 
 export default function Home() {
   return <Profile />;
@@ -36,6 +37,7 @@ function Profile({ session }) {
       }
       if (data) {
         console.log(data, user.id);
+        setName(data.username);
       }
     } catch (error) {
       alert(error.message);
@@ -142,28 +144,13 @@ function Profile({ session }) {
         ))}
       </div>
       <div className={styles.info}>
-        <Info />
+        <Nav username={name} />
       </div>
     </main>
   );
 }
 
 function Header() {}
-
-function Info() {
-  return (
-    <nav>
-      <h1 className={styles.heading}>Salim Abubakar</h1>
-      <div className={styles.list}>
-        <a>restaurants</a>
-        <a>list</a>
-        <a>profile</a>
-        <a>settings</a>
-        <a>log out</a>
-      </div>
-    </nav>
-  );
-}
 
 function Card({ name, meal }) {
   return (
