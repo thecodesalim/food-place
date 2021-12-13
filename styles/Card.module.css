@@ -1,0 +1,41 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  height: 60px;
+  justify-content: center;
+  /* background-color: #ddd; */
+  border-radius: 4px;
+  margin-bottom: 5px;
+}
+
+.card p {
+  margin: 0.5px;
+  margin-left: 10px;
+  padding: 0;
+}
+
+.restaurant {
+  font-weight: bold;
+}
+
+.food {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 5px;
+}
+
+.food_details {
+  display: flex;
+  flex-direction: row;
+}
+
+.date {
+  font-size: 11px;
+  color: #828282;
+}
+
+.location {
+  color: #828282;
+  font-size: 11px;
+}
