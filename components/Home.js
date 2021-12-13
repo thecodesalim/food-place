@@ -15,13 +15,14 @@ function Profile({ session }) {
   const [loading, setLoading] = react.useState(false);
   const [modal, setModal] = react.useState(false);
   const [name, setName] = react.useState("");
+  const [restaurant, setRestaurant] = react.useState("");
   const [meal, setMeal] = react.useState("");
   const [fetchRest, setFetchRest] = react.useState([]);
 
   react.useEffect(() => {
     getProfile();
     getItems();
-  }, [session, name]);
+  }, [session, restaurant]);
 
   const getProfile = async () => {
     try {
@@ -78,7 +79,7 @@ function Profile({ session }) {
 
       const info = {
         user_id: user.id,
-        restaurant_name: name,
+        restaurant_name: restaurant,
         favourite_meal: meal,
       };
 
@@ -102,7 +103,7 @@ function Profile({ session }) {
 
   const handleAddRestaurant = () => {
     saveInfo();
-    setName("");
+    setRestaurant("");
     setMeal("");
   };
   return (
@@ -122,8 +123,8 @@ function Profile({ session }) {
           <p>New Restaurant</p>
           <Input
             placeholder="Restaurant"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
+            value={restaurant}
+            onChange={(e) => setRestaurant(e.target.value)}
           />
           <Input
             placeholder="Favourite meal"
