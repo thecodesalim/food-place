@@ -1,5 +1,3 @@
-import { useRouter } from "next/router";
-import useSwr from "swr";
 import Card from "../../components/Card";
 import Nav from "../../components/Nav";
 import Header from "../../components/Header";
@@ -7,18 +5,8 @@ import styles from "../../styles/User.module.css";
 
 import { getItem } from "../../utils/supabaseClient";
 
-const fetcher = (url) => fetch(url).then((res) => res.json());
-
 export default function User({ item }) {
-  const router = useRouter();
   console.log(item);
-  const { data, error } = useSwr(
-    router.query.id ? `/api/user/${router.query.id}` : null,
-    fetcher
-  );
-
-  if (error) return <div>Failed to load user</div>;
-  if (!data) return <div>Loading...</div>;
 
   return (
     <main className={styles.main}>
