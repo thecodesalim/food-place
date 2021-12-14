@@ -11,7 +11,7 @@ export const getItem = async (id) => {
     .select("*")
     .eq("user_id", id);
 
-  console.log(data, "salim");
+  console.log(id, "salim");
   if (error) {
     console.log(error.message);
     throw error;
