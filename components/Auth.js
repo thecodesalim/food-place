@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Image from "next/image";
+import Head from "next/dist/shared/lib/head";
 import { supabase } from "../utils/supabaseClient";
 import styles from "../styles/Auth.module.css";
 import Input from "./Input";
@@ -42,7 +43,11 @@ export default function Auth() {
 
   return (
     <div>
-      {type ? (
+      <Head>
+        <title>Food Place</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      </Head>
+      {!type ? (
         <div className={styles.container}>
           <h1>Food Place</h1>
           <p>Share your food exploration</p>
@@ -81,8 +86,8 @@ export default function Auth() {
             >
               <span>
                 {type
-                  ? "Register for a free acount"
-                  : "Already have an account"}
+                  ? "Already have an account"
+                  : "Register for a free acount"}
               </span>
             </button>
           </div>
@@ -126,8 +131,8 @@ export default function Auth() {
             >
               <span>
                 {type
-                  ? "Register for a free acount"
-                  : "Already have an account"}
+                  ? "Already have an account"
+                  : "Register for a free acount"}
               </span>
             </button>
           </div>
