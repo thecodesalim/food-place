@@ -108,6 +108,10 @@ function Profile({ session }) {
   };
   return (
     <main className={styles.main}>
+      <Head>
+        <title>Food Place</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      </Head>
       <div className={styles.content}>
         <button className={styles.btn} onClick={toggleModal}>
           Add

@@ -1,5 +1,7 @@
 import Link from "next/link";
 import styles from "../styles/Nav.module.css";
+import { logOut } from "../utils/supabaseClient";
+import Button from "./Button";
 export default function Nav(props) {
   return (
     <nav>
@@ -11,7 +13,10 @@ export default function Nav(props) {
         <Link href="/settings">
           <a>settings</a>
         </Link>
-        <a>log out</a>
+        {/* <Button title="log out" onClick={() => logOut()} /> */}
+        <Link href="/">
+          <a onClick={() => logOut()}>log out</a>
+        </Link>
       </div>
     </nav>
   );
