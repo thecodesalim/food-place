@@ -5,17 +5,7 @@ export default function Input(props) {
       placeholder={props.placeholder}
       onChange={props.onChange}
       value={props.value}
-      style={{
-        border: "none",
-        width: "350px",
-        height: "30px",
-        borderRadius: "4px",
-        borderWidth: "1px",
-        borderColor: "#ddd",
-        borderStyle: "solid",
-        marginBottom: "8px",
-        marginLeft: "8px",
-      }}
+      className="h-8 w-60 text-sm rounded-md border border-gray-400 border-solid mb-4 ml-4 pl-2"
     />
   );
 }

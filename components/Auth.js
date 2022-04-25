@@ -49,8 +49,11 @@ export default function Auth() {
       </Head>
       {!type ? (
         <div className={styles.container}>
-          <h1>Food Place</h1>
-          <p>Share your food exploration</p>
+          <h1 className="text-lg font-semibold">Food Place</h1>
+          <p className="pb-4 text-sm">
+            a community of food explorers, sharing our food adventures and
+            helping each other find the next food spot.
+          </p>
           <div style={{ display: "flex", flexDirection: "column" }}>
             <Input
               type="email"
@@ -67,7 +70,8 @@ export default function Auth() {
           </div>
           <div>
             <button
-              className={styles.btn}
+              className="
+               h-7 w-20 rounded-md bg-sky-500 text-gray-50 cursor-pointer mt-4 text-sm"
               onClick={(e) => {
                 e.preventDefault();
                 handleLogin(email);
@@ -77,7 +81,7 @@ export default function Auth() {
               <span>{loading ? "Loading" : "Connect"}</span>
             </button>
             <button
-              style={{ border: "none", marginLeft: "8px" }}
+              className="text-sm ml-2"
               onClick={(e) => {
                 e.preventDefault();
                 controlType();
@@ -94,8 +98,11 @@ export default function Auth() {
         </div>
       ) : (
         <div className={styles.container}>
-          <h1>Food Place</h1>
-          <p>Share your food exploration!</p>
+          <h1 className="text-lg font-semibold">Food Place</h1>
+          <p className="pb-4 text-sm">
+            a community of food explorers, sharing our food adventures and
+            helping each other find the next food spot.
+          </p>
           <div style={{ display: "flex", flexDirection: "column" }}>
             <Input
               type="email"
@@ -112,7 +119,8 @@ export default function Auth() {
           </div>
           <div>
             <button
-              className={styles.btn}
+              className="
+              h-7 w-20 rounded-md bg-sky-500 text-gray-50 cursor-pointer mt-4 text-sm"
               onClick={(e) => {
                 e.preventDefault();
                 handleSignUp(email, password);
@@ -122,7 +130,7 @@ export default function Auth() {
               <span>{loading ? "Loading" : "Connect"}</span>
             </button>
             <button
-              style={{ border: "none", marginLeft: "8px" }}
+              className="text-sm ml-2"
               onClick={(e) => {
                 e.preventDefault();
                 controlType();
