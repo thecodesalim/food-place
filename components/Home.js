@@ -144,7 +144,6 @@ function Profile({ session }) {
             </button>
           </div>
         </div>
-        <p>Recents:</p>
         {fetchRest.map((i) => (
           <Card key={i.id} name={i.restaurant_name} meal={i.favourite_meal} />
         ))}
