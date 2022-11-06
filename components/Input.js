@@ -5,7 +5,7 @@ export default function Input(props) {
       placeholder={props.placeholder}
       onChange={props.onChange}
       value={props.value}
-      className="h-8 w-60 text-sm rounded-md border border-gray-400 border-solid mb-4 ml-4 pl-2"
+      className="appearance-none outline-none h-8 w-60 text-sm border-b"
     />
   );
 }
