@@ -2,26 +2,46 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import { useFormInput } from "../hooks/useFormInput";
+import Button from "./Button";
 import Input from "./Input";
-const Entry = ({ isVisible }: { isVisible: Boolean }) => {
-  const useInput = useFormInput("");
+
+const Entry = ({ isVisible, item }: { isVisible: Boolean; item: Function }) => {
+  const useRestaurant = useFormInput("");
+  const useMeal = useFormInput("");
   return (
     <AnimatePresence>
       {isVisible && (
         <motion.div
           initial={{ opacity: 0, height: 0 }}
           animate={{ opacity: 1, height: "auto" }}
-          transition={{ duration: 0.5 }}
           exit={{ opacity: 0, height: 0 }}
+          transition={{ duration: 0.5 }}
+          className=" flex flex-col"
         >
           <Input
             type="text"
-            placeholder="Restuarant"
+            placeholder="restuarant"
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              useInput.onChange(e.target.value)
+              useRestaurant.onChange(e.target.value)
             }
-            value={useInput.value}
+            value={useRestaurant.value}
           />
+          <Input
+            type="text"
+            placeholder="meal"
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              useMeal.onChange(e.target.value)
+            }
+            value={useMeal.value}
+          />
+          <div className=" pt-5">
+            <Button
+              title="add"
+              onClick={() =>
+                item({ name: useRestaurant.value, meal: useMeal.value })
+              }
+            />
+          </div>
         </motion.div>
       )}
     </AnimatePresence>

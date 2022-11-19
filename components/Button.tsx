@@ -1,10 +1,16 @@
-export default function Button({ onClick }) {
+export default function Button({
+  title,
+  onClick,
+}: {
+  title: string;
+  onClick: React.MouseEventHandler;
+}) {
   return (
     <button
       className=" border rounded-md text-black text-sm p-2 px-4"
       onClick={onClick}
     >
-      Sign up
+      {title}
     </button>
   );
 }

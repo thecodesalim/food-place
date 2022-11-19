@@ -10,20 +10,20 @@ export default function Page() {
       <div className=" text-sm">
         <ul className=" ">
           <li className=" flex flex-col">
-            <span>Name</span> <Input />
+            <Input placeholder="Name" />
           </li>
           <li className=" flex flex-col">
-            <span>Username</span> <Input />
+            <Input placeholder="Username" />
           </li>
           <li className=" flex flex-col">
-            <span>Password</span> <Input />
+            <Input placeholder="Password" />
           </li>
           <li className=" flex flex-col">
-            <span>Email</span> <Input />
+            <Input placeholder="Email" />
           </li>
         </ul>
         <div className=" mt-5 flex flex-row items-center space-x-4">
-          <Button />
+          <Button title="sign up" />
           <p>already have an account?</p>
         </div>
       </div>
