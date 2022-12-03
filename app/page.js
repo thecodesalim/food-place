@@ -1,3 +1,5 @@
+"use client";
+
 import Button from "../components/Button";
 import Input from "../components/Input";
 export default function Page() {
@@ -10,6 +12,9 @@ export default function Page() {
       <div className=" text-sm">
         <ul className=" ">
           <li className=" flex flex-col">
+            <Input placeholder="Email" />
+          </li>
+          <li className=" flex flex-col">
             <Input placeholder="Name" />
           </li>
           <li className=" flex flex-col">
@@ -19,7 +24,7 @@ export default function Page() {
             <Input placeholder="Password" />
           </li>
           <li className=" flex flex-col">
-            <Input placeholder="Email" />
+            <Input placeholder="Password" />
           </li>
         </ul>
         <div className=" mt-5 flex flex-row items-center space-x-4">
