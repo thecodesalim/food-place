@@ -4,13 +4,9 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 import Button from "../../../components/Button";
 import Card from "../../../components/Card";
-import Entry from "../../../components/Entry";
+import List from "../../../components/List";
 
-const bootlegs = [
-  { name: "SFC", meal: "Burger" },
-  { name: "KFC", meal: "Chicken" },
-  { name: "November Cubes", meal: "Spicy Noodles" },
-];
+const bootlegs = [{ title: "SFC", description: "Burger" }];
 export default function Page() {
   const [input, setInput] = useState(false);
   const [items, setItems] = useState(bootlegs);
@@ -32,18 +28,18 @@ export default function Page() {
         <AnimatePresence>
           {!hidden && (
             <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.5 }}
             >
-              <Button title="Place" onClick={toggle} hidden={hidden} />
+              <Button title="List" onClick={toggle} hidden={hidden} />
             </motion.div>
           )}
         </AnimatePresence>
-        <Entry isVisible={input} item={add} />
+        <List isVisible={input} item={add} />
         {items.map((i, index) => (
-          <Card key={index} name={i.name} meal={i.meal} />
+          <Card key={index} name={i.title} meal={i.description} />
         ))}
       </div>
     </div>

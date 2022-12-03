@@ -5,7 +5,7 @@ import { useFormInput } from "../hooks/useFormInput";
 import Button from "./Button";
 import Input from "./Input";
 
-const Entry = ({ isVisible, item }: { isVisible: Boolean; item: Function }) => {
+const List = ({ isVisible, item }: { isVisible: Boolean; item: Function }) => {
   const useRestaurant = useFormInput("");
   const useMeal = useFormInput("");
   return (
@@ -20,7 +20,7 @@ const Entry = ({ isVisible, item }: { isVisible: Boolean; item: Function }) => {
         >
           <Input
             type="text"
-            placeholder="restuarant"
+            placeholder="title"
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               useRestaurant.onChange(e.target.value)
             }
@@ -28,7 +28,7 @@ const Entry = ({ isVisible, item }: { isVisible: Boolean; item: Function }) => {
           />
           <Input
             type="text"
-            placeholder="meal"
+            placeholder="description"
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               useMeal.onChange(e.target.value)
             }
@@ -49,4 +49,4 @@ const Entry = ({ isVisible, item }: { isVisible: Boolean; item: Function }) => {
   );
 };
 
-export default Entry;
+export default List;
