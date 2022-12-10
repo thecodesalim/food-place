@@ -19,6 +19,14 @@ model Item {
   user       User     @relation(fields: [userId], references: [id])
 }
 
+model List {
+  id          String @id @default(auto()) @map("_id") @db.ObjectId
+  title       String
+  description String
+  userId      String @db.ObjectId
+  user        User   @relation(fields: [userId], references: [id])
+}
+
 model Account {
   id                 String  @id @default(auto()) @map("_id") @db.ObjectId
   userId             String
@@ -56,4 +64,5 @@ model User {
   Account       Account[]
   Session       Session[]
   Items         Item[]
+  List          List[]
 }

@@ -7,13 +7,13 @@ export default async function handle(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const { name, meal, id } = req.body;
+  const { name, meal, user } = req.body;
   await prisma.item.create({
     data: {
       meal: meal,
       restaurant: name,
       date: new Date(),
-      userId: id,
+      userId: user.id,
     },
   });
   res.json({

@@ -3,7 +3,7 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 import Button from "../../../components/Button";
-import Card from "../../../components/Card";
+import ListCard from "../../../components/ListCard";
 import List from "../../../components/List";
 
 const bootlegs = [{ title: "SFC", description: "Burger" }];
@@ -13,7 +13,8 @@ export default function Page() {
   const [hidden, setHidden] = useState(false);
 
   const add = (item) => {
-    setItems([item, ...items]);
+    console.log(item);
+    setItems([{ title: item.name, description: item.meal }, ...items]);
   };
 
   const toggle = () => {
@@ -39,7 +40,7 @@ export default function Page() {
         </AnimatePresence>
         <List isVisible={input} item={add} />
         {items.map((i, index) => (
-          <Card key={index} name={i.title} meal={i.description} />
+          <ListCard key={index} title={i.title} desc={i.description} />
         ))}
       </div>
     </div>

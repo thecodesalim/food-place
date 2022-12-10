@@ -2,26 +2,35 @@
 
 import { useSession } from "next-auth/react";
 import { AnimatePresence, motion } from "framer-motion";
-import { useState } from "react";
+import { useState, useEffect, use } from "react";
 import Button from "../../../components/Button";
 import Card from "../../../components/Card";
 import Entry from "../../../components/Entry";
 
-const bootlegs = [
-  { name: "SFC", meal: "Burger" },
-  { name: "KFC", meal: "Chicken" },
-  { name: "November Cubes", meal: "Spicy Noodles" },
-];
 export default function Page() {
   const { data: session } = useSession();
   const [input, setInput] = useState(false);
-  const [items, setItems] = useState(bootlegs);
+  //const [items, setItems] = useState([]);
   const [hidden, setHidden] = useState(false);
 
+  const [data, setData] = useState([]);
+  const [isLoading, setLoading] = useState(false);
+
+  useEffect(() => {
+    setLoading(true);
+    fetch("/api/item")
+      .then((res) => res.json())
+      .then((data) => {
+        setData(data);
+        setLoading(false);
+        console.log(data);
+      });
+  }, []);
+
   const add = async (item) => {
-    setItems([item, ...items]);
+    setData([item, ...data]);
     const { name, meal } = item;
-    const body = { name, meal, id: session.user.id };
+    const body = { name, meal, user: session.user };
     try {
       await fetch(`/api/user`, {
         method: "POST",
@@ -37,6 +46,7 @@ export default function Page() {
     setInput(!input);
     setHidden(!hidden);
   };
+  if (isLoading) return <p>Loading...</p>;
   if (session) {
     return (
       <div>
@@ -56,8 +66,8 @@ export default function Page() {
             )}
           </AnimatePresence>
           <Entry isVisible={input} item={add} />
-          {items.map((i, index) => (
-            <Card key={index} name={i.name} meal={i.meal} />
+          {data.map((i, index) => (
+            <Card key={index} name={i.restaurant} meal={i.meal} />
           ))}
         </div>
       </div>

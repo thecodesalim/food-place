@@ -3,11 +3,11 @@ import React, { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 
 type Entry = {
-  name: string;
-  meal: string;
+  title: string;
+  desc: string;
 };
 
-export default function Card({ name, meal }: Entry) {
+export default function ListCard({ title, desc }: Entry) {
   const [drop, setDrop] = useState(false);
 
   const toggleDrop = () => {
@@ -21,15 +21,14 @@ export default function Card({ name, meal }: Entry) {
       exit={{ opacity: 0 }}
       className=" flex flex-col mt-5 space-y-1 "
     >
-      <div className=" flex flex-row space-x-3">
-        <p className=" font-medium">{name}</p>
-        <p>{meal}</p>
+      <div className=" flex flex-col ">
+        <p className=" font-medium">{title}</p>
+        <p>{desc}</p>
       </div>
       <div className=" flex flex-row space-x-3 text-grey text font-light">
-        <p>abuja, nigeria</p>
         <p>november 2022</p>
-        <p>write note</p>
-        <p onClick={toggleDrop}>add to list</p>
+        <p>edit</p>
+        <p onClick={toggleDrop}>add book</p>
       </div>
       <div className={drop ? "flex space-x-3" : "hidden"}>
         <select className="text-sm">
