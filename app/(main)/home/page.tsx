@@ -4,8 +4,8 @@ import { useSession } from "next-auth/react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import Button from "../../../components/Button";
-import Card from "../../../components/Card";
-import Entry from "../../../components/Entry";
+import Card from "../../../components/ItemCard";
+import Entry from "../../../components/ItemEntry";
 
 export default function Page() {
   const { data: session } = useSession();
@@ -28,7 +28,6 @@ export default function Page() {
         .then((data) => {
           setData(data);
           setLoading(false);
-          console.log(data);
         });
     } catch (error) {
       console.error(error);
@@ -38,8 +37,6 @@ export default function Page() {
   const add = async (item) => {
     setData([item, ...data]);
     const { name, meal } = item;
-    const body = { name, meal, user: session.user };
-    console.log(session.user, "Session User");
     try {
       await fetch(`/api/user`, {
         body: JSON.stringify({ name, meal, user: session.user }),
@@ -76,7 +73,12 @@ export default function Page() {
           </AnimatePresence>
           <Entry isVisible={input} item={add} />
           {data.map((i, index) => (
-            <Card key={index} name={i.restaurant} meal={i.meal} />
+            <Card
+              key={index}
+              name={i.restaurant}
+              meal={i.meal}
+              date={new Date(i.date).toLocaleDateString()}
+            />
           ))}
         </div>
       </div>

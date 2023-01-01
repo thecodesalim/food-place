@@ -39,7 +39,7 @@ const List = ({ isVisible, item }: { isVisible: Boolean; item: Function }) => {
               hidden={false}
               title="Save"
               onClick={() =>
-                item({ name: useRestaurant.value, meal: useMeal.value })
+                item({ title: useRestaurant.value, description: useMeal.value })
               }
             />
           </div>

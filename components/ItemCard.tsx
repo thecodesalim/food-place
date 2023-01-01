@@ -5,9 +5,10 @@ import { AnimatePresence, motion } from "framer-motion";
 type Entry = {
   name: string;
   meal: string;
+  date: string;
 };
 
-export default function Card({ name, meal }: Entry) {
+export default function Card({ name, meal, date }: Entry) {
   const [drop, setDrop] = useState(false);
 
   const toggleDrop = () => {
@@ -27,7 +28,7 @@ export default function Card({ name, meal }: Entry) {
       </div>
       <div className=" flex flex-row space-x-3 text-grey text font-light">
         <p>abuja, nigeria</p>
-        <p>november 2022</p>
+        <p>{date}</p>
         <p>write note</p>
         <p onClick={toggleDrop}>add to list</p>
       </div>

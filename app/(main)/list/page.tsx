@@ -1,21 +1,31 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
+import { useSession } from "next-auth/react";
 import { useState, useEffect } from "react";
 import Button from "../../../components/Button";
 import ListCard from "../../../components/ListCard";
-import List from "../../../components/List";
+import List from "../../../components/ListEntry";
 
-const bootlegs = [{ title: "SFC", description: "Burger" }];
 export default function Page() {
+  const { data: session } = useSession();
   const [input, setInput] = useState(false);
-  const [items, setItems] = useState(bootlegs);
   const [hidden, setHidden] = useState(false);
+  const [data, setData] = useState([]);
   const [isLoading, setLoading] = useState(false);
 
-  const add = (item) => {
-    console.log(item);
-    setItems([{ title: item.name, description: item.meal }, ...items]);
+  const add = async (item) => {
+    setData([item, ...data]);
+    const { title, description } = item;
+    try {
+      await fetch(`/api/list`, {
+        body: JSON.stringify({ title, description, user: session.user }),
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+      });
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const toggle = () => {
@@ -25,11 +35,11 @@ export default function Page() {
 
   useEffect(() => {
     setLoading(true);
-    fetch("/api/item")
+    fetch("/api/list")
       .then((res) => res.json())
       .then((data) => {
+        setData(data);
         setLoading(false);
-        console.log(data);
       });
   }, []);
 
@@ -51,7 +61,7 @@ export default function Page() {
           )}
         </AnimatePresence>
         <List isVisible={input} item={add} />
-        {items.map((i, index) => (
+        {data.map((i, index) => (
           <ListCard key={index} title={i.title} desc={i.description} />
         ))}
       </div>

@@ -1,10 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import prisma from "../../utils/prisma";
 import { unstable_getServerSession } from "next-auth/next";
 import { authOptions } from "./auth/[...nextauth]";
+import prisma from "../../utils/prisma";
 
-// POST /api/user
-// Required fields in body: name, email
 export default async function handle(
   req: NextApiRequest,
   res: NextApiResponse
@@ -15,12 +13,24 @@ export default async function handle(
     return;
   }
 
+  if (req.method === "POST") {
+    const { title, description } = req.body;
+    await prisma.list.create({
+      data: {
+        title,
+        description,
+        userId: session.user.id,
+      },
+    });
+    res.json({ message: "List created" });
+  }
+
   if (req.method === "GET") {
-    const items = await prisma.item.findMany({
+    const lists = await prisma.list.findMany({
       where: {
         userId: session.user.id,
       },
     });
-    res.json(items);
+    res.json(lists);
   }
 }
