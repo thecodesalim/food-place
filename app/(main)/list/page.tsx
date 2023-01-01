@@ -1,7 +1,7 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Button from "../../../components/Button";
 import ListCard from "../../../components/ListCard";
 import List from "../../../components/List";
@@ -11,6 +11,7 @@ export default function Page() {
   const [input, setInput] = useState(false);
   const [items, setItems] = useState(bootlegs);
   const [hidden, setHidden] = useState(false);
+  const [isLoading, setLoading] = useState(false);
 
   const add = (item) => {
     console.log(item);
@@ -21,6 +22,17 @@ export default function Page() {
     setInput(!input);
     setHidden(!hidden);
   };
+
+  useEffect(() => {
+    setLoading(true);
+    fetch("/api/item")
+      .then((res) => res.json())
+      .then((data) => {
+        setLoading(false);
+        console.log(data);
+      });
+  }, []);
+
   return (
     <div>
       <p className=" italic">index</p>

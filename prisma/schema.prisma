@@ -61,8 +61,8 @@ model User {
   email         String?   @unique
   emailVerified DateTime?
   image         String?
-  Account       Account[]
-  Session       Session[]
-  Items         Item[]
-  List          List[]
+  account       Account[]
+  session       Session[]
+  items         Item[]
+  list          List[]
 }

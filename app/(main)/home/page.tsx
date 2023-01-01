@@ -2,7 +2,7 @@
 
 import { useSession } from "next-auth/react";
 import { AnimatePresence, motion } from "framer-motion";
-import { useState, useEffect, use } from "react";
+import { useState, useEffect } from "react";
 import Button from "../../../components/Button";
 import Card from "../../../components/Card";
 import Entry from "../../../components/Entry";
@@ -18,24 +18,33 @@ export default function Page() {
 
   useEffect(() => {
     setLoading(true);
-    fetch("/api/item")
-      .then((res) => res.json())
-      .then((data) => {
-        setData(data);
-        setLoading(false);
-        console.log(data);
-      });
+    try {
+      fetch("/api/item", {
+        //body: JSON.stringify({ user: session.user }),
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          setData(data);
+          setLoading(false);
+          console.log(data);
+        });
+    } catch (error) {
+      console.error(error);
+    }
   }, []);
 
   const add = async (item) => {
     setData([item, ...data]);
     const { name, meal } = item;
     const body = { name, meal, user: session.user };
+    console.log(session.user, "Session User");
     try {
       await fetch(`/api/user`, {
+        body: JSON.stringify({ name, meal, user: session.user }),
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(body),
       });
     } catch (error) {
       console.error(error);
