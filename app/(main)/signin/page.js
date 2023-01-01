@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
+import { InferGetServerSidePropsType } from "next";
 import { getProviders, signIn } from "next-auth/react";
 
 export default function Page() {
