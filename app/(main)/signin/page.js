@@ -1,10 +1,16 @@
 "use client";
 import { useEffect, useState } from "react";
 import { InferGetServerSidePropsType } from "next";
-import { getProviders, signIn } from "next-auth/react";
+import { getProviders, signIn, useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 export default function Page() {
   const [providers, setProviders] = useState(null);
+  const router = useRouter();
+  const { data: session } = useSession();
+  if (session) {
+    router.push("home");
+  }
   useEffect(() => {
     const fetchData = async () => {
       const p = await getProviders();
