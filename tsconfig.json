@@ -25,7 +25,11 @@
     ".next/types/**/*.ts",
     "**/*.ts",
     "**/*.tsx",
-    "app/(main)/signin/page.js"
+    "app/(main)/signin/page.js",
+    "pages/api/user/[...slug].js",
+    "pages/api/user/[...slug].js",
+    "app/(main)/home/page.js",
+    "app/(main)/home/page.js"
   ],
   "exclude": ["node_modules"]
 }

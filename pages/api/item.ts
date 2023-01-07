@@ -23,4 +23,17 @@ export default async function handle(
     });
     res.json(items);
   }
+
+  if (req.method === "POST") {
+    const { name, meal, user } = req.body;
+    const item = await prisma.item.create({
+      data: {
+        meal: meal,
+        restaurant: name,
+        date: new Date(),
+        userId: user.id,
+      },
+    });
+    res.json(item);
+  }
 }

@@ -1,6 +1,5 @@
 "use client";
 import { useEffect, useState } from "react";
-import { InferGetServerSidePropsType } from "next";
 import { getProviders, signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 

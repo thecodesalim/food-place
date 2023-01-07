@@ -6,8 +6,10 @@ import { useState, useEffect } from "react";
 import Button from "../../../components/Button";
 import Card from "../../../components/ItemCard";
 import Entry from "../../../components/ItemEntry";
+import { useRouter } from "next/navigation";
 
 export default function Page() {
+  const router = useRouter();
   const { data: session } = useSession();
   const [input, setInput] = useState(false);
   //const [items, setItems] = useState([]);
@@ -56,30 +58,49 @@ export default function Page() {
   if (session) {
     return (
       <div>
-        <p className=" italic">index</p>
+        <p className=" italic">home</p>
         <div className=" w-auto h-px bg-grey"></div>
-        <div className=" mt-4">
-          <AnimatePresence>
-            {!hidden && (
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.5 }}
+        <div className=" flex justify-around">
+          <div>
+            <div className=" mt-4">
+              <AnimatePresence>
+                {!hidden && (
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.5 }}
+                  >
+                    <Button title="Place" onClick={toggle} hidden={hidden} />
+                  </motion.div>
+                )}
+              </AnimatePresence>
+              <Entry isVisible={input} item={add} />
+              {data.map((i, index) => (
+                <Card
+                  key={index}
+                  name={i.restaurant}
+                  meal={i.meal}
+                  date={new Date(i.date).toLocaleDateString()}
+                />
+              ))}
+            </div>
+          </div>
+          <div>
+            <ul className=" mt-4 text-grey cursor-pointer">
+              <li>Resatuarants</li>
+              <li>Tags</li>
+              <li
+                onClick={() =>
+                  router.push(`/user/${session.user?.id}/subscriptions`)
+                }
               >
-                <Button title="Place" onClick={toggle} hidden={hidden} />
-              </motion.div>
-            )}
-          </AnimatePresence>
-          <Entry isVisible={input} item={add} />
-          {data.map((i, index) => (
-            <Card
-              key={index}
-              name={i.restaurant}
-              meal={i.meal}
-              date={new Date(i.date).toLocaleDateString()}
-            />
-          ))}
+                following
+              </li>
+              <li>Profile</li>
+              <li>Log out</li>
+            </ul>
+          </div>
         </div>
       </div>
     );

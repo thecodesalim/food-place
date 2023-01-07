@@ -61,8 +61,19 @@ model User {
   email         String?   @unique
   emailVerified DateTime?
   image         String?
+  followers Follows[] @relation("following")
+  following Follows[] @relation("follower")
   account       Account[]
   session       Session[]
   items         Item[]
   list          List[]
+}
+
+model Follows {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  followerId String? @db.ObjectId
+  followingId String? @db.ObjectId
+  follower User? @relation("follower", fields: [followerId], references: [id])
+  following User? @relation("following", fields: [followingId], references: [id])
+  @@unique([followerId, followingId])
 }
