@@ -3,6 +3,8 @@
 > Share your food exploration
 
 - NextJS
-- Supabase
+- Next-auth
+- Prisma
+- Mongodb
 
 Work in progress
