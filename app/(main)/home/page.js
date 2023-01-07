@@ -40,7 +40,7 @@ export default function Page() {
     setData([item, ...data]);
     const { name, meal } = item;
     try {
-      await fetch(`/api/user`, {
+      await fetch(`/api/item`, {
         body: JSON.stringify({ name, meal, user: session.user }),
         method: "POST",
         headers: { "Content-Type": "application/json" },
