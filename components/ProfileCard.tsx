@@ -10,7 +10,7 @@ export default function ProfileCard({
   const router = useRouter();
   const handleFollow = async (id: string) => {
     try {
-      await fetch(`/api/follows`, {
+      await fetch(`/api/connect`, {
         body: JSON.stringify({ id }),
         method: "POST",
         headers: { "Content-Type": "application/json" },
