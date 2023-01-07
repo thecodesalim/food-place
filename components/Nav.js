@@ -10,13 +10,9 @@ export default function Nav(props) {
         <a>restaurants</a>
         <a>list</a>
         <a>profile</a>
-        <Link href="/settings">
-          <a>settings</a>
-        </Link>
+        <Link href="/settings">settings</Link>
         {/* <Button title="log out" onClick={() => logOut()} /> */}
-        <Link href="/">
-          <a onClick={() => logOut()}>log out</a>
-        </Link>
+        <Link href="/">log out</Link>
       </div>
     </nav>
   );

@@ -1,0 +1,79 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model Item {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  meal       String
+  restaurant String
+  date       DateTime
+  userId     String   @db.ObjectId
+  user       User     @relation(fields: [userId], references: [id])
+}
+
+model List {
+  id          String @id @default(auto()) @map("_id") @db.ObjectId
+  title       String
+  description String
+  userId      String @db.ObjectId
+  user        User   @relation(fields: [userId], references: [id])
+}
+
+model Account {
+  id                 String  @id @default(auto()) @map("_id") @db.ObjectId
+  userId             String  @db.ObjectId
+  type               String
+  provider           String
+  providerAccountId  String
+  refresh_token      String?
+  access_token       String?
+  expires_at         Int?
+  token_type         String?
+  scope              String?
+  id_token           String?
+  session_state      String?
+  oauth_token_secret String?
+  oauth_token        String?
+  user               User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  sessionToken String   @unique
+  userId       String   @db.ObjectId
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model User {
+  id            String    @id @default(auto()) @map("_id") @db.ObjectId
+  name          String?
+  email         String?   @unique
+  emailVerified DateTime?
+  image         String?
+  followers Follows[] @relation("following")
+  following Follows[] @relation("follower")
+  account       Account[]
+  session       Session[]
+  items         Item[]
+  list          List[]
+}
+
+model Follows {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  followerId String? @db.ObjectId
+  followingId String? @db.ObjectId
+  follower User? @relation("follower", fields: [followerId], references: [id])
+  following User? @relation("following", fields: [followingId], references: [id])
+  @@unique([followerId, followingId])
+}
