@@ -52,7 +52,11 @@ export default function Page({ params }) {
         <div className=" w-auto h-px bg-grey"></div>
         <div className=" flex justify-around">
           <div>
-            <ProfileCard name={details} followingId={params.slug} />
+            <ProfileCard
+              name={details}
+              followingId={params.slug}
+              isFollowed={[]}
+            />
             <div className=" mt-4">
               <AnimatePresence>
                 {!hidden && (
@@ -81,8 +85,8 @@ export default function Page({ params }) {
             <ul className=" mt-4 text-primary">
               <li>Restaurants</li>
               <li>Tags</li>
-              <li>Following</li>
-              <li className=" text-black">Profile</li>
+              <li className=" text-black">Following</li>
+              <li>Profile</li>
               <li>Log out</li>
             </ul>
           </div>

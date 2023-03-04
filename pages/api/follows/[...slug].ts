@@ -7,28 +7,19 @@ export default async function handle(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  if (req.method === "POST") {
+  if (req.method === "GET") {
     const session = await unstable_getServerSession(req, res, authOptions);
     if (!session) {
       res.status(401).json({ message: "You must be logged in." });
       return;
     }
-    const { id } = req.body;
-    await prisma.follows.create({
-      data: {
-        followerId: session.user.id,
-        followingId: id,
-      },
-    });
-    res.json({ message: "Follow created" });
-  }
-
-  if (req.method === "GET") {
     const { slug } = req.query as { slug: string };
     const id = slug[0];
+    console.log(id, session.user.id);
     const follows = await prisma.follows.findMany({
       where: {
-        followerId: id,
+        followerId: session.user.id,
+        //followingId: id,
       },
       include: {
         following: true,

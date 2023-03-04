@@ -3,9 +3,11 @@ import { useRouter } from "next/navigation";
 export default function ProfileCard({
   name,
   followingId,
+  isFollowed,
 }: {
   name: string;
   followingId: string;
+  isFollowed: [];
 }) {
   const router = useRouter();
   const handleFollow = async (id: string) => {
@@ -28,7 +30,7 @@ export default function ProfileCard({
           following
         </li>
         <li className=" text-primary" onClick={() => handleFollow(followingId)}>
-          follow
+          {isFollowed.length > 0 ? "unfollow" : "follow"}
         </li>
       </ul>
     </div>

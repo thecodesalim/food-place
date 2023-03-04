@@ -14,12 +14,44 @@ export default async function handle(
       return;
     }
     const { id } = req.body;
-    await prisma.follows.create({
-      data: {
+
+    const isFollwing = await prisma.follows.findMany({
+      where: {
         followerId: session.user.id,
         followingId: id,
       },
+      include: {
+        following: true,
+      },
     });
-    res.json({ message: "Follow created" });
+
+    if (isFollwing.length === 0 && id !== session.user.id) {
+      await prisma.follows.create({
+        data: {
+          followerId: session.user.id,
+          followingId: id,
+        },
+      });
+      res.json({ message: "Follow created" });
+    }
+  }
+  if (req.method === "GET") {
+    const session = await unstable_getServerSession(req, res, authOptions);
+    if (!session) {
+      res.status(401).json({ message: "You must be logged in." });
+      return;
+    }
+    const { slug } = req.query as { slug: string };
+    const id = slug[0];
+    const follows = await prisma.follows.findMany({
+      where: {
+        followerId: session.user.id,
+        followingId: id,
+      },
+      include: {
+        following: true,
+      },
+    });
+    res.json(follows);
   }
 }

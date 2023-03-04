@@ -12,6 +12,7 @@ export default function Page({ params }) {
   const [details, setDetails] = useState("");
   const [data, setData] = useState([]);
   const [isLoading, setLoading] = useState(false);
+  const [isFollowed, setIsFollowed] = useState([]);
 
   useEffect(() => {
     setLoading(true);
@@ -30,6 +31,21 @@ export default function Page({ params }) {
     } catch (error) {}
   }, []);
 
+  useEffect(() => {
+    setLoading(true);
+    try {
+      fetch(`/api/follows/${params.slug}`, {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          setIsFollowed(data);
+          setLoading(false);
+        });
+    } catch (error) {}
+  }, []);
+
   if (isLoading) return <p>Loading...</p>;
   if (session) {
     return (
@@ -38,7 +54,13 @@ export default function Page({ params }) {
         <div className=" w-auto h-px bg-grey"></div>
         <div className=" flex justify-around">
           <div>
-            <ProfileCard name={details} followingId={params.slug} />
+            <ProfileCard
+              name={details}
+              followingId={params.slug}
+              isFollowed={
+                isFollowed.filter((i) => i.followingId === params.slug) as any
+              }
+            />
             <div className=" mt-4">
               <AnimatePresence>
                 {!hidden && (
