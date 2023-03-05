@@ -27,7 +27,7 @@ export default function Page({ params }) {
           setLoading(false);
         });
     } catch (error) {}
-  }, []);
+  }, [params.slug]);
 
   useEffect(() => {
     setLoading(true);
@@ -42,7 +42,7 @@ export default function Page({ params }) {
           setLoading(false);
         });
     } catch (error) {}
-  }, []);
+  }, [params.slug]);
 
   if (isLoading) return <p>Loading...</p>;
   if (session) {
@@ -55,7 +55,8 @@ export default function Page({ params }) {
             <ProfileCard
               name={details}
               followingId={params.slug}
-              isFollowed={[]}
+              isFollowed={false}
+              onClick={() => console.log("not in use")}
             />
             <div className=" mt-4">
               <AnimatePresence>

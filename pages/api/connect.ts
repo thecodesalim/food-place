@@ -8,6 +8,7 @@ export default async function handle(
   res: NextApiResponse
 ) {
   if (req.method === "POST") {
+    console.log("post");
     const session = await unstable_getServerSession(req, res, authOptions);
     if (!session) {
       res.status(401).json({ message: "You must be logged in." });
@@ -53,5 +54,35 @@ export default async function handle(
       },
     });
     res.json(follows);
+  }
+
+  if (req.method === "DELETE") {
+    console.log("delete");
+    const session = await unstable_getServerSession(req, res, authOptions);
+    if (!session) {
+      res.status(401).json({ message: "You must be logged in." });
+      return;
+    }
+    const { id } = req.body;
+
+    const isFollwing = await prisma.follows.findMany({
+      where: {
+        followerId: session.user.id,
+        followingId: id,
+      },
+      include: {
+        following: true,
+      },
+    });
+
+    const deleteUser = await prisma.follows.delete({
+      where: {
+        followerId_followingId: {
+          followerId: session.user.id,
+          followingId: id,
+        },
+      },
+    });
+    res.json({ message: "user deleted" });
   }
 }

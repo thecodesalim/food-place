@@ -12,7 +12,7 @@ export default function Page({ params }) {
   const [details, setDetails] = useState("");
   const [data, setData] = useState([]);
   const [isLoading, setLoading] = useState(false);
-  const [isFollowed, setIsFollowed] = useState([]);
+  const [isFollowed, setIsFollowed] = useState(false);
 
   useEffect(() => {
     setLoading(true);
@@ -40,11 +40,41 @@ export default function Page({ params }) {
       })
         .then((res) => res.json())
         .then((data) => {
-          setIsFollowed(data);
-          setLoading(false);
+          if (data) {
+            setIsFollowed(true);
+            setLoading(false);
+          }
         });
     } catch (error) {}
-  }, []);
+  }, [params.slug]);
+
+  const handleFollow = async (id: string) => {
+    if (isFollowed) {
+      try {
+        console.log("delete");
+        await fetch(`/api/connect`, {
+          body: JSON.stringify({ id }),
+          method: "DELETE",
+          headers: { "Content-Type": "application/json" },
+        });
+        setIsFollowed(false);
+      } catch (error) {
+        console.error(error);
+      }
+    } else {
+      try {
+        console.log("follow");
+        await fetch(`/api/connect`, {
+          body: JSON.stringify({ id }),
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+        });
+        setIsFollowed(true);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  };
 
   if (isLoading) return <p>Loading...</p>;
   if (session) {
@@ -57,9 +87,8 @@ export default function Page({ params }) {
             <ProfileCard
               name={details}
               followingId={params.slug}
-              isFollowed={
-                isFollowed.filter((i) => i.followingId === params.slug) as any
-              }
+              isFollowed={isFollowed}
+              onClick={() => handleFollow(params.slug)}
             />
             <div className=" mt-4">
               <AnimatePresence>
@@ -88,7 +117,7 @@ export default function Page({ params }) {
               <li>Restaurants</li>
               <li>Tags</li>
               <li>Following</li>
-              <li className=" text-black">Profile</li>
+              <li>Profile</li>
               <li>Log out</li>
             </ul>
           </div>
